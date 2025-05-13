@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inventario de Productos</title>
+
+  <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<meta name="theme-color" content="#18e322">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    #tituloEditable {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    #editarTitulo {
+      display: block;
+      margin: 0 auto 20px;
+      text-align: center;
+      font-size: 16px;
+      background: transparent;
+      border: none;
+      color: #007bff;
+      cursor: pointer;
+    }
+    form, .producto {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #18e322c1;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .productos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+    }
+    .producto img {
+      width: 100px;
+      height: auto;
+      max-height: 100px;
+      border-radius: 10px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .btn-eliminar {
+      background: #87212b;
+      margin-top: 10px;
+    }
+    table {
+      width: 100%;
+      margin-top: 10px;
+      border-collapse: collapse;
+    }
+    table th, table td {
+      padding: 8px;
+      border: 1px solid #ccc;
+    }
+    .cantidad-controles {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .cantidad-controles button {
+      width: 30px;
+      padding: 5px;
+    }
+    .producto-info {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h2 id="tituloEditable" contenteditable="true">Inventario de Productos</h2>
+<button id="editarTitulo">  </button>
+
+<input type="text" id="busqueda" placeholder="Buscar producto...">
+
+<form id="formulario">
+  <input type="text" id="nombre" placeholder="Nombre del producto" required>
+  <input type="text" id="color" placeholder="Colores (separados por coma)" required>
+  <input type="text" id="talla" placeholder="Tallas (separadas por coma)" required>
+  <input type="number" id="precioPublico" placeholder="Precio público" required>
+  <input type="number" id="precioPermitido" placeholder="Precio permitido">
+  <input type="file" id="foto" accept="image/*">
+  <button type="submit">Agregar Producto</button>
+</form>
+
+<div class="productos" id="lista"></div>
+
+<script>
+let productos = JSON.parse(localStorage.getItem('productos')) || [];
+let tituloGuardado = localStorage.getItem('tituloInventario');
+let estadoAbierto = JSON.parse(localStorage.getItem('estadoAbierto')) || {};
+
+if (tituloGuardado) {
+  document.getElementById('tituloEditable').textContent = tituloGuardado;
+}
+
+document.getElementById('tituloEditable').addEventListener('input', () => {
+  localStorage.setItem('tituloInventario', document.getElementById('tituloEditable').textContent.trim());
+});
+
+document.getElementById('editarTitulo').addEventListener('click', () => {
+  const titulo = document.getElementById('tituloEditable');
+  titulo.focus();
+  document.execCommand('selectAll', false, null);
+});
+
+function guardarProductos() {
+  localStorage.setItem('productos', JSON.stringify(productos));
+}
+
+function mostrarProductos(filtro = '') {
+  const lista = document.getElementById('lista');
+  lista.innerHTML = '';
+
+  productos.forEach((p, i) => {
+    if (filtro && !p.nombre.toLowerCase().includes(filtro.toLowerCase())) return;
+
+    const div = document.createElement('div');
+    div.className = 'producto';
+
+    const estaAbierto = estadoAbierto[i] || false;
+
+    let tabla = `
+      <div class="producto-info" id="info-${i}" style="display: ${estaAbierto ? 'block' : 'none'}">
+        <table>
+          <tr><th>Color</th><th>Talla</th><th>Cantidad</th></tr>
+          ${p.variantes.map((v, j) => `
+            <tr>
+              <td>${v.color}</td>
+              <td>${v.talla}</td>
+              <td class="cantidad-controles">
+                <button onclick="restar(${i}, ${j})">-</button>
+                ${v.cantidad}
+                <button onclick="sumar(${i}, ${j})">+</button>
+              </td>
+            </tr>
+          `).join('')}
+        </table>
+        <button onclick="eliminarProducto(${i})" class="btn-eliminar">Eliminar producto</button>
+      </div>
+    `;
+
+    div.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <img src="${p.foto}" alt="${p.nombre}">
+        <div>
+          <strong>${p.nombre}</strong><br>
+          Precio público: $${p.precioPublico.toFixed(2)}<br>
+          Precio permitido: $${p.precioPermitido?.toFixed(2) || "N/A"}<br>
+          <button onclick="toggleTabla(${i})">Mostrar/ocultar info</button>
+        </div>
+      </div>
+      ${tabla}
+    `;
+
+    lista.appendChild(div);
+  });
+
+  localStorage.setItem('estadoAbierto', JSON.stringify(estadoAbierto));
+}
+
+function toggleTabla(i) {
+  const info = document.getElementById(`info-${i}`);
+  const visible = info.style.display === 'block';
+  info.style.display = visible ? 'none' : 'block';
+  estadoAbierto[i] = !visible;
+  localStorage.setItem('estadoAbierto', JSON.stringify(estadoAbierto));
+}
+
+function sumar(i, j) {
+  productos[i].variantes[j].cantidad++;
+  guardarProductos();
+  mostrarProductos(document.getElementById('busqueda').value);
+}
+
+function restar(i, j) {
+  if (productos[i].variantes[j].cantidad > 0) {
+    productos[i].variantes[j].cantidad--;
+    guardarProductos();
+    mostrarProductos(document.getElementById('busqueda').value);
+  }
+}
+
+function eliminarProducto(i) {
+  if (confirm("¿Seguro que deseas eliminar este producto?")) {
+    productos.splice(i, 1);
+    delete estadoAbierto[i];
+    guardarProductos();
+    mostrarProductos(document.getElementById('busqueda').value);
+  }
+}
+
+document.getElementById('formulario').addEventListener('submit', e => {
+  e.preventDefault();
+
+  const nombre = document.getElementById('nombre').value;
+  const colores = document.getElementById('color').value.split(',').map(c => c.trim());
+  const tallas = document.getElementById('talla').value.split(',').map(t => t.trim());
+  const precioPublico = parseFloat(document.getElementById('precioPublico').value);
+  const precioPermitido = parseFloat(document.getElementById('precioPermitido').value) || null;
+  const fotoInput = document.getElementById('foto');
+
+  const variantes = [];
+  colores.forEach(color => {
+    tallas.forEach(talla => {
+      variantes.push({ color, talla, cantidad: 0 });
+    });
+  });
+
+  function agregarConFoto(fotoUrl) {
+    productos.push({ nombre, precioPublico, precioPermitido, foto: fotoUrl, variantes });
+    guardarProductos();
+    mostrarProductos();
+    document.getElementById('formulario').reset();
+  }
+
+  if (fotoInput.files.length) {
+    const reader = new FileReader();
+    reader.onload = () => agregarConFoto(reader.result);
+    reader.readAsDataURL(fotoInput.files[0]);
+  } else {
+    agregarConFoto("https://via.placeholder.com/100");
+  }
+});
+
+document.getElementById('busqueda').addEventListener('input', (e) => {
+  mostrarProductos(e.target.value);
+});
+
+mostrarProductos();
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log("SW registrado"))
+      .catch(err => console.error("SW falló", err));
+  }
+</script>
+
+</body>
+</html>
+
