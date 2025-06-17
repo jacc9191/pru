@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Ejemplo imagen desde GitHub</title>
+
 </head>
 <body>
   <h1>Producto desde GitHub</h1>
