@@ -1,0 +1,603 @@
+ /* === VARIABLES === */
+:root {
+  --color-principal: #000000;
+  --color-secundario: #ffffff;
+  --trans: all 0.3s ease;
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* === RESET GENERAL === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #000000dd;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+
+/* === ENCABEZADO === */
+header {
+  background: linear-gradient(90deg, #000000, #ffffff, #000000);
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #000;
+  box-shadow: var(--sombra-suave);
+  border-radius: 0 0 20px 20px;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin: 0;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* === PRODUCTOS === */
+.producto {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: var(--sombra-suave);
+  width: 100%;
+  max-width: 320px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  text-align: center;
+  transition: var(--trans);
+}
+
+.producto:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.main-img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  max-height: 200px;
+}
+
+.producto h2 {
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  margin: 0.5rem 0;
+  color: #000;
+  font-weight: bold;
+}
+
+.producto p {
+  font-size: 1rem;
+  color: #090909;
+  margin: 0.5rem 0;
+}
+
+.producto strong {
+  color: #e60023;
+  font-size: 1.15rem;
+}
+
+/* === CARRUSELES === */
+.carrusel-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 1rem 0;
+  justify-content: center;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carrusel-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.carrusel-scroll > * {
+  flex: 0 0 calc(100% / 3.2);
+  scroll-snap-align: center;
+  transform: scale(0.9);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  text-align: center;
+  max-width: 100px;
+}
+
+.carrusel-scroll > *.active {
+  background: linear-gradient(135deg, #ffffff, #ffffff);
+  border: 2px solid #000;
+  color: #000;
+  transform: scale(1.12);
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.color-item,
+.talla-item {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  margin: 0.4rem 0;
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #000;
+  background: linear-gradient(135deg, #e0e0e0, #ffffff);
+  border: 2px solid #7d7777;
+  text-align: center;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: var(--trans);
+}
+
+.color-item:hover,
+.talla-item:hover {
+  transform: scale(1.12);
+  background: linear-gradient(135deg, #d8d8d8, #e6e6e6);
+  box-shadow: 0 6px 16px rgba(125, 124, 124, 0.25);
+  cursor: pointer;
+}
+
+.color-item.active,
+.talla-item.active {
+  transform: scale(1.12);
+  background: linear-gradient(135deg, #fff, #fff);
+  border: 2px solid #81fe90;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* === BOTONES === */
+button,
+.btn-verde,
+.btn-gris,
+.btn-azul,
+.btn-agregar {
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  border: 2px solid #000;
+  transition: var(--trans);
+  cursor: pointer;
+}
+
+button {
+  background-color: var(--color-principal);
+  color: #fff;
+  width: 100%;
+  max-width: 320px;
+}
+
+button:hover {
+  background-color: var(--color-secundario);
+  color: #000;
+  transform: scale(1.02);
+}
+
+.btn-verde {
+  background-color: #2eb719;
+  color: white;
+}
+
+.btn-verde:hover {
+  background-color: #3ddc84;
+  color: #000;
+}
+
+.btn-gris {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-gris:hover {
+  background-color: #8b99a5;
+  color: #000;
+}
+
+.btn-azul {
+  width: 25vw;
+  max-width: 300px;
+  min-width: 150px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0 1rem 1rem;
+}
+
+.fila-carrito button {
+  width: 25vw;
+  max-width: 300px;
+  min-width: 150px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0 1rem 1rem;
+}
+
+
+
+
+.btn-azul:hover,
+.fila-carrito button:hover {
+  background: linear-gradient(135deg, #f3f3f3, #ecebea);
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.carrito-oculto .btn-agregar {
+  background: #ffffff;       /* Fondo blanco */
+  color: #000000;            /* Texto negro */
+  border: 2px solid #000;
+}
+
+.carrito-oculto .btn-agregar:hover {
+  background: #000000;       /* Fondo negro en hover */
+  color: #ffffff;            /* Texto blanco */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+.btn-agregar {
+  display: block;
+  margin: 1.2rem auto 0;
+  background: linear-gradient(135deg, #000, #000);
+  color: #fff;
+  border-radius: 14px;
+  max-width: 280px;
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.2);
+}
+
+
+
+.btn-agregar:hover {
+  background: linear-gradient(135deg, #000000, #000000);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgb(255, 255, 255);
+  color: #ffffff; /* <- Asegura que el texto se vea blanco */
+  cursor: pointer;
+}
+
+
+.fila-carrito {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+/* === CARRITO ITEM === */
+.item-carrito-elegante {
+  background: linear-gradient(135deg, #fffefa, #f7f6f4);
+  border: 2px solid #000;
+  border-radius: 16px;
+  padding: 1rem 1.2rem;
+  margin: 1rem 0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.item-carrito-elegante:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.carrito-info .info-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icono-eliminar {
+  font-size: 1.2rem;
+  color: #e60023;
+  cursor: pointer;
+}
+
+.icono-eliminar:hover {
+  color: #ff4a4a;
+}
+
+.total-carrito {
+  text-align: right;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #333;
+}
+
+.total-carrito span {
+  font-weight: bold;
+  color: #28a745;
+}
+
+
+.fila-carrito button.ver-carrito {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.fila-carrito button.ver-carrito:hover {
+  background-color: #e6e6e6 !important;
+  color: #000000 !important;
+}
+
+.fila-carrito button.ocultar-carrito {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.fila-carrito button.ocultar-carrito:hover {
+  background-color: #111 !important;
+  color: #ffffff !important;
+}
+
+
+/* === FORMULARIO CLIENTE === */
+#formularioCliente {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#formularioCliente form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.campo-formulario label {
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: var(--color-principal);
+  font-size: 0.95rem;
+}
+
+.campo-formulario input,
+.campo-formulario select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+#formularioCliente form .botones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+  width: 100%;
+}
+
+/* === DARK MODE === */
+body.dark-mode .carrito,
+body.dark-mode #formularioCliente form {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+body.dark-mode .campo-formulario input,
+body.dark-mode .campo-formulario select {
+  background-color: #2a2a2a;
+  border-color: #444;
+  color: #f0f0f0;
+}
+
+body.dark-mode .campo-formulario input:focus,
+body.dark-mode .campo-formulario select:focus {
+  border-color: var(--color-secundario);
+  box-shadow: 0 0 0 2px rgba(110, 246, 72, 0.2);
+}
+
+/* === UTILITARIOS === */
+.fondo-oscuro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+.oculto {
+  display: none !important;
+}
+
+.img-mini {
+  height: 60px;
+  width: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.notificacion {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #414341;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--sombra-suave);
+  font-size: 1rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  max-width: 90vw;
+}
+
+.notificacion.mostrar {
+  opacity: 1;
+}
+
+.imagenes-carrusel {
+  display: none !important;
+}
+
+.fila-carrito {
+  justify-content: flex-end; /* Mueve el botón a la derecha */
+  padding: 1rem;
+}
+
+
+/* === MEDIA QUERIES === */
+@media (max-width: 768px) {
+  .producto {
+    width: 90%;
+    margin: 1rem auto;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .carrusel-scroll > * {
+    flex: 0 0 30%;
+  }
+}
+
+@media (max-width: 480px) {
+  .producto {
+    width: 100%;
+    margin: 1rem 0.5rem;
+  }
+
+  .main-img {
+    max-height: 160px;
+  }
+
+  .talla-item,
+  .color-item {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .fila-carrito button,
+  .btn-azul {
+    width: 80vw;
+    margin-left: 1rem;
+  }
+
+  .btn-agregar {
+    font-size: 1rem;
+    padding: 0.85rem 1.2rem;
+    max-width: 100%;
+  }
+}
+
+.fila-carrito button.ver-carrito {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.fila-carrito button.ver-carrito:hover {
+  background-color: #e6e6e6 !important;
+  color: #000000 !important;
+}
+
+.fila-carrito button.ocultar-carrito {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+.fila-carrito button.ocultar-carrito:hover {
+  background-color: #111 !important;
+  color: #ffffff !important;
+}
+
+.fila-carrito button.ocultar-carrito {
+  background: #000000 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+}
+
+.fila-carrito button.ocultar-carrito:hover {
+  background: #111111 !important;
+  color: #ffffff !important;
+}
+
+/* Estilo para el botón de WhatsApp */
+.btn-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366; /* color oficial de WhatsApp */
+  color: white;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebd5b;
+  transform: scale(1.05);
+}
+

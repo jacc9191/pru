@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Moda&amp;Estilo</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"/>
+<link rel="icon" href="favicon.ico">
+
+
+</meta><link href="style.css" rel="stylesheet"/><script defer="True" src="app.js"></script></head>
+<body>
+<header>
+<h1>Moda &amp; Estilo</h1>
+</header>
+<div class="notificacion oculto" id="notificacion">Producto agregado al carrito 🛒</div>
+<!-- Botón que despliega TODO -->
+<div class="fila-carrito">
+<button class="btn-azul" onclick="toggleCarrito()">Ver Carrito</button>
+</div>
+<!-- Contenedor de todo: carrito, total, botones y formulario -->
+<div class="oculto container" id="bloqueCarrito">
+<div id="carrito"></div>
+<div id="total-carrito"></div>
+<!-- Finalizar compra -->
+<div style="text-align:center; margin-top: 1rem;">
+<button class="btn-verde" onclick="mostrarFormulario()">✅ Finalizar compra</button>
+</div>
+<div class="oculto" id="formularioCliente" style="margin-top: 2rem;">
+<form onsubmit="event.preventDefault(); confirmarEnvioWhatsApp();">
+<h3>📋 Datos del cliente</h3>
+<div class="campo-formulario">
+<label for="nombreCliente">👤 Nombre completo</label>
+<input id="nombreCliente" required="" type="text"/>
+</div>
+<div class="campo-formulario">
+<label for="departamentoCliente">🏛️ Departamento</label>
+<input id="departamentoCliente" required="" type="text"/>
+</div>
+<div class="campo-formulario">
+<label for="ciudadCliente">🏙️ Ciudad</label>
+<input id="ciudadCliente" required="" type="text"/>
+</div>
+<div class="campo-formulario">
+<label for="direccionCliente">🏠 Dirección</label>
+<input id="direccionCliente" required="" type="text"/>
+</div>
+<div class="campo-formulario">
+<label for="celularCliente">📞 Celular</label>
+<input id="celularCliente" maxlength="10" pattern="[0-9]{10}" placeholder="Ej: 3111234567" required="" type="tel"/>
+</div>
+<div class="campo-formulario">
+<label for="metodoPagoCliente">💳 Método de pago</label>
+<select id="metodoPagoCliente" required="">
+<option value="">Selecciona una opción</option>
+<option value="Efectivo">Efectivo</option>
+<option value="Transferencia">Transferencia</option>
+<option value="Contra entrega">Contra entrega</option>
+</select>
+</div>
+<div class="botones">
+<button class="btn-verde" type="submit">📲 Enviar pedido por WhatsApp</button>
+<button class="btn-gris" onclick="ocultarFormulario()" type="button">🔙 Volver</button>
+</div>
+</form>
+</div>
+</div>
+<div id="contenedor-productos"></div>
+<a aria-label="Chatea con nosotros por WhatsApp" class="btn-whatsapp" href="https://wa.me/573185634316" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<footer style="text-align: center; padding: 1rem; background: #2d3b49; color: white;">
+<div style="font-size: 1.8rem;">
+<a href="https://facebook.com/jaccshoes" style="margin: 0 10px; color: #0e54eb;" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://instagram.com/modaestilocol" style="margin: 0 10px; color: #e1306c;" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://www.tiktok.com/@tu-cuenta" style="margin: 0 10px; color: #000000;" target="_blank"><i class="fab fa-tiktok"></i></a>
+</div>
+<div style="font-size: 0.9rem; color: #ffffff;">
+      © 2025 Moda &amp; Estilo. Todos los derechos reservados.
+    </div>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+#login, #admin {
+  max-width: 400px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #0056b3;
+}
+#productos-lista {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.producto-item {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+}
+.producto-item:last-child {
+  border-bottom: none;
+}
+.acciones {
+  margin-top: 0.5rem;
+}
+.acciones button {
+  background-color: #dc3545;
+  margin-top: 0.3rem;
+}
+.acciones button:hover {
+  background-color: #c82333;
+}
+.preview-img {
+  max-width: 100%;
+  margin-bottom: 1rem;
+  display: block;
+}

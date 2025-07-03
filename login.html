@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="icon" href="favicon.ico">
+</head>
+<body>
+  <h1>Panel de Administración</h1>
+  <div id="login">
+    <input type="email" id="correo" placeholder="Correo" />
+    <input type="password" id="clave" placeholder="Contraseña" />
+    <button onclick="loginFirebase()">Iniciar sesión</button>
+  </div>
+  <div id="admin" style="display: none;">
+    <h2>Agregar Producto</h2>
+    <input id="nuevoNombre" placeholder="Nombre producto" />
+    <input id="nuevoPrecio" placeholder="Precio actual" />
+    <input id="nuevoPrecioOriginal" placeholder="Precio original" />
+    <input id="nuevoImagenes" placeholder="Ej: rojo|url1, azul|url2..." oninput="actualizarPreview()" />
+    <input id="nuevoColor" placeholder="Color" />
+    <img id="preview" class="preview-img" alt="Vista previa de la imagen principal" />
+    <input id="nuevoTallas" placeholder="Tallas separadas por coma" />
+    <button onclick="agregarProducto()">Agregar Producto</button>
+    <div id="productos-lista">
+      <h2>📦 Productos Agregados</h2>
+      <div id="productos"></div>
+    </div>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>
